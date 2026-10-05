@@ -118,20 +118,10 @@ Email settings are bound from the `EmailSettings` configuration section. Keep SM
 Additional screenshots can be added to `docs/screenshots/` as they are captured:
 
 - [Login](docs/screenshots/login.png)
-- [Admin dashboard](docs/screenshots/admin-dashboard.png)
-- [Patients](docs/screenshots/patients.png)
-- [Doctors](docs/screenshots/doctors.png)
-- [Appointments](docs/screenshots/appointments.png)
-- [Prescription](docs/screenshots/prescription.png)
-- [Access denied](docs/screenshots/access-denied.png)
-
-## Demo Video
-
-The project demonstration video will be added here.
 
 ## Future improvements
 
 - Add and verify automated tests for critical workflows.
 - Complete and verify end-to-end SMTP notification workflows before describing them as available.
 - Add production deployment guidance and deployment-specific secret management.
-- Add screenshots and a project demonstration video.
+
