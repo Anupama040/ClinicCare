@@ -1,0 +1,73 @@
+@model ClinicManagement.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="auth-shell">
+    <div class="container">
+        <div class="auth-card reveal-card">
+            <aside class="auth-visual">
+                <div class="brand-inline auth-brand-inline">
+                    <span class="brand-mark">+</span>
+                    <span>ClinicManagement</span>
+                </div>
+
+                <div class="auth-visual-copy">
+                    <span class="eyebrow light">Welcome back</span>
+                    <h1>Care is easier when it feels connected.</h1>
+                    <p>Manage appointments, patient records, and wellness plans with a calmer digital experience.</p>
+                </div>
+
+                <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=80"
+                     alt="Doctor speaking with patient"
+                     class="auth-visual-image" />
+
+                <ul class="auth-points">
+                    <li>Seamless scheduling</li>
+                    <li>Secure patient access</li>
+                    <li>Smarter follow-up care</li>
+                </ul>
+            </aside>
+
+            <div class="auth-form-pane">
+                <div class="form-header">
+                    <span class="eyebrow">Sign in</span>
+                    <h2>Welcome to your care portal</h2>
+                </div>
+
+                <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="auth-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="auth-field">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control auth-input" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="auth-field">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" class="form-control auth-input" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3 remember-row">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label">Keep me signed in</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary auth-submit">Login</button>
+                </form>
+
+                <p class="switch-copy">
+                    Need an account?
+                    <a asp-action="Register">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

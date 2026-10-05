@@ -1,0 +1,53 @@
+@model IEnumerable<ClinicManagement.Models.Appointment>
+
+@{
+    ViewData["Title"] = "My Appointments";
+}
+
+<h1>My Appointments</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        You do not have any appointments yet.
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Specialization</th>
+                <th>Date and Time</th>
+                <th>Status</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>
+                    Dr. @appointment.Doctor.FirstName
+                    @appointment.Doctor.LastName
+                </td>
+                <td>
+                    @appointment.Doctor.Specialization
+                </td>
+                <td>
+                    @appointment.AppointmentDate.ToString(
+                        "dd-MM-yyyy hh:mm tt")
+                </td>
+                <td>
+                    @appointment.Status
+                </td>
+                <td>
+                    @(appointment.Notes ?? "No notes")
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

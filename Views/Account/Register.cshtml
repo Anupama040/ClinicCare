@@ -1,0 +1,74 @@
+@model ClinicManagement.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="auth-shell">
+    <div class="container">
+        <div class="auth-card register-card reveal-card">
+            <aside class="auth-visual">
+                <div class="brand-inline auth-brand-inline">
+                    <span class="brand-mark">+</span>
+                    <span>ClinicManagement</span>
+                </div>
+
+                <div class="auth-visual-copy">
+                    <span class="eyebrow light">Create account</span>
+                    <h1>Start your care journey with confidence.</h1>
+                    <p>Set up access to appointments, digital records, and a smoother care experience from day one.</p>
+                </div>
+
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=80"
+                     alt="Healthcare professional smiling"
+                     class="auth-visual-image" />
+
+                <ul class="auth-points">
+                    <li>Fast digital onboarding</li>
+                    <li>Secure account protection</li>
+                    <li>Friendly support experience</li>
+                </ul>
+            </aside>
+
+            <div class="auth-form-pane">
+                <div class="form-header">
+                    <span class="eyebrow">Register</span>
+                    <h2>Create your account</h2>
+                </div>
+
+                <form asp-action="Register" method="post" class="auth-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="auth-field">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control auth-input" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="auth-field">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" class="form-control auth-input" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="auth-field">
+                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                        <input asp-for="ConfirmPassword" class="form-control auth-input" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary auth-submit">Register</button>
+                </form>
+
+                <p class="switch-copy">
+                    Already have an account?
+                    <a asp-action="Login">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

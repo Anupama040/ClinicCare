@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ClinicManagement</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ClinicManagement.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <span class="brand-mark">+</span>
+                    <span>ClinicManagement</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div id="mainNavigation" class="collapse navbar-collapse justify-content-between">
+                    <ul class="navbar-nav align-items-lg-center gap-lg-2">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Receptionist") || User.IsInRole("Doctor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Patients" asp-action="Index">Patients</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Doctors" asp-action="Index">Doctors</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Receptionist") || User.IsInRole("Doctor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Appointments" asp-action="Index">Appointments</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Patient"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Appointments" asp-action="MyAppointments">My Appointments</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+                    </ul>
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="auth-actions">
+                            <button type="button" class="btn btn-outline-primary theme-toggle" data-theme-toggle aria-label="Switch to dark theme">
+                                <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+                                <span data-theme-label>Dark mode</span>
+                            </button>
+                            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-primary auth-logout-btn">Logout</button>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="auth-actions">
+                            <button type="button" class="btn btn-outline-primary theme-toggle" data-theme-toggle aria-label="Switch to dark theme">
+                                <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+                                <span data-theme-label>Dark mode</span>
+                            </button>
+                            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">Sign in</a>
+                            <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Create account</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="page-main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <div class="brand-inline">
+                    <span class="brand-mark small">+</span>
+                    <span>ClinicManagement</span>
+                </div>
+            </div>
+            <p>Compassionate care designed around people.</p>
+            <p>&copy; 2026 ClinicManagement</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

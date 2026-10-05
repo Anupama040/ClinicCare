@@ -1,0 +1,90 @@
+@model ClinicManagement.ViewModels.AppointmentViewModel
+
+@{
+    ViewData["Title"] = "Schedule Appointment";
+}
+
+<section class="booking-shell">
+    <div class="booking-heading reveal-card">
+        <span class="eyebrow">Thoughtful care starts here</span>
+        <h1>Schedule a patient visit</h1>
+        <p>Choose the right care team member, find a time, and add context for the visit.</p>
+    </div>
+
+    <div class="booking-layout">
+        <form asp-action="Create" method="post" class="booking-form panel reveal-card">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="booking-step">
+                <span class="step-number">01</span>
+                <div class="step-content">
+                    <h2>Who is the visit for?</h2>
+                    <p>Select a patient and clinician for this appointment.</p>
+                </div>
+            </div>
+
+            <div class="booking-fields">
+                <div class="auth-field">
+                    <label asp-for="PatientId" class="form-label"></label>
+                    <select asp-for="PatientId" asp-items="Model.Patients" class="form-select auth-input">
+                        <option value="">Select patient</option>
+                    </select>
+                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                </div>
+
+                <div class="auth-field">
+                    <label asp-for="DoctorId" class="form-label"></label>
+                    <select asp-for="DoctorId" asp-items="Model.Doctors" class="form-select auth-input">
+                        <option value="">Select doctor</option>
+                    </select>
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="booking-step">
+                <span class="step-number">02</span>
+                <div class="step-content">
+                    <h2>Choose a time</h2>
+                    <p>Visits are scheduled between 9:00 AM and 6:00 PM.</p>
+                </div>
+            </div>
+
+            <div class="auth-field booking-date-field">
+                <label asp-for="AppointmentDate" class="form-label"></label>
+                <input asp-for="AppointmentDate" type="datetime-local" class="form-control auth-input" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+
+            <div class="auth-field">
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" class="form-control auth-input booking-notes" placeholder="Share any helpful context for the visit"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+
+            <div class="booking-actions">
+                <button type="submit" class="btn btn-primary btn-lg">Confirm appointment</button>
+                <a asp-action="Index" class="btn btn-outline-primary">Cancel</a>
+            </div>
+        </form>
+
+        <aside class="booking-aside reveal-card">
+            <div class="booking-aside-icon" aria-hidden="true">✚</div>
+            <span class="eyebrow light">A little preparation goes a long way</span>
+            <h2>Make room for a better visit.</h2>
+            <p>A clear appointment gives the care team more time to focus on the person in front of them.</p>
+            <ul class="auth-points">
+                <li>Confirm patient and clinician details</li>
+                <li>Choose a time during clinic hours</li>
+                <li>Add notes to help prepare for the visit</li>
+            </ul>
+            <div class="booking-hours">
+                <span>Clinic hours</span>
+                <strong>Monday – Friday · 9 AM – 6 PM</strong>
+            </div>
+        </aside>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

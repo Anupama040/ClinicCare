@@ -1,0 +1,125 @@
+@model ClinicManagement.Models.Doctor
+
+@{
+    ViewData["Title"] = "Edit Doctor";
+}
+
+<h1>Edit Doctor</h1>
+
+<form asp-action="Edit"
+      asp-route-id="@Model.Id"
+      method="post">
+
+    <input type="hidden"
+           asp-for="Id" />
+
+    <input type="hidden"
+           asp-for="CreatedAt" />
+
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger">
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="FirstName"
+                   class="form-label">
+            </label>
+
+            <input asp-for="FirstName"
+                   class="form-control" />
+
+            <span asp-validation-for="FirstName"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="LastName"
+                   class="form-label">
+            </label>
+
+            <input asp-for="LastName"
+                   class="form-control" />
+
+            <span asp-validation-for="LastName"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Specialization"
+                   class="form-label">
+            </label>
+
+            <input asp-for="Specialization"
+                   class="form-control" />
+
+            <span asp-validation-for="Specialization"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Email"
+                   class="form-label">
+            </label>
+
+            <input asp-for="Email"
+                   class="form-control" />
+
+            <span asp-validation-for="Email"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Phone"
+                   class="form-label">
+            </label>
+
+            <input asp-for="Phone"
+                   class="form-control" />
+
+            <span asp-validation-for="Phone"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="ConsultationFee"
+                   class="form-label">
+            </label>
+
+            <input asp-for="ConsultationFee"
+                   class="form-control" />
+
+            <span asp-validation-for="ConsultationFee"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3 form-check">
+            <input asp-for="IsAvailable"
+                   class="form-check-input" />
+
+            <label asp-for="IsAvailable"
+                   class="form-check-label">
+            </label>
+        </div>
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Save Changes
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

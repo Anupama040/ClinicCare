@@ -1,0 +1,149 @@
+@using System.Security.Claims
+@model ClinicManagement.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    var userRole = User.FindFirstValue(ClaimTypes.Role) ?? "Patient";
+    var peakDayCount = Model.WeeklyActivity.Count == 0
+        ? 0
+        : Model.WeeklyActivity.Max(day => day.Count);
+}
+
+<section class="dashboard-shell">
+    <div class="container">
+        <div class="dashboard-hero reveal-card">
+            <div>
+                <span class="eyebrow">Your care workspace · @userRole</span>
+                <h1>Good to see you, @User.Identity?.Name</h1>
+                <p>A clear view of what needs your attention today.</p>
+            </div>
+
+            <div class="dashboard-actions">
+                @if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
+                {
+                    <a class="btn btn-primary" asp-controller="Appointments" asp-action="Create">Schedule a visit</a>
+                }
+                @if (User.IsInRole("Patient"))
+                {
+                    <a class="btn btn-primary" asp-controller="Appointments" asp-action="MyAppointments">My appointments</a>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Doctor") || User.IsInRole("Receptionist"))
+                {
+                    <a class="btn btn-outline-primary" asp-controller="Appointments" asp-action="Index">Appointment list</a>
+                }
+            </div>
+        </div>
+
+        <div class="stat-grid">
+            <article class="stat-card reveal-card">
+                <span class="stat-label">Appointments today</span>
+                <strong class="stat-value">@Model.AppointmentsToday</strong>
+                <small class="stat-caption">Scheduled for today</small>
+            </article>
+            <article class="stat-card reveal-card">
+                <span class="stat-label">Upcoming visits</span>
+                <strong class="stat-value">@Model.UpcomingAppointments</strong>
+                <small class="stat-caption">Currently scheduled</small>
+            </article>
+            <article class="stat-card reveal-card">
+                <span class="stat-label">Patients in view</span>
+                <strong class="stat-value">@Model.PatientCount</strong>
+                <small class="stat-caption">Connected to your care</small>
+            </article>
+            <article class="stat-card reveal-card">
+                <span class="stat-label">Available clinicians</span>
+                <strong class="stat-value">@Model.AvailableDoctorCount</strong>
+                <small class="stat-caption">Ready to see patients</small>
+            </article>
+        </div>
+
+        <div class="dashboard-grid">
+            <article class="panel reveal-card">
+                <div class="panel-heading">
+                    <div>
+                        <span class="mini-label">Next in your day</span>
+                        <h3>Upcoming appointments</h3>
+                    </div>
+                    @if (!User.IsInRole("Patient"))
+                    {
+                        <a asp-controller="Appointments" asp-action="Index">View all</a>
+                    }
+                </div>
+
+                @if (Model.Upcoming.Count == 0)
+                {
+                    <div class="empty-state">
+                        <span class="empty-state-mark">✓</span>
+                        <strong>Your schedule is clear</strong>
+                        <span>There are no upcoming appointments to show.</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="appointment-list">
+                        @foreach (var appointment in Model.Upcoming)
+                        {
+                            <div class="appointment-row">
+                                <div class="appointment-person">
+                                    <span class="avatar-chip">
+                                        @appointment.Patient.FirstName[..1]@appointment.Patient.LastName[..1]
+                                    </span>
+                                    <div>
+                                        <strong>@appointment.Patient.FirstName @appointment.Patient.LastName</strong>
+                                        <span>With Dr. @appointment.Doctor.FirstName @appointment.Doctor.LastName</span>
+                                    </div>
+                                </div>
+                                <div class="appointment-time">
+                                    <strong>@appointment.AppointmentDate.ToString("h:mm tt")</strong>
+                                    <span>@appointment.AppointmentDate.ToString("ddd, MMM d")</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </article>
+
+            <article class="panel reveal-card">
+                <div class="panel-heading">
+                    <div>
+                        <span class="mini-label">Last 7 days</span>
+                        <h3>Appointment activity</h3>
+                    </div>
+                </div>
+
+                <div class="activity-chart" role="img" aria-label="Appointments by day during the last seven days">
+                    @foreach (var day in Model.WeeklyActivity)
+                    {
+                        var barHeight = peakDayCount == 0 ? 0 : Math.Max(12, (int)Math.Round(day.Count * 100d / peakDayCount));
+                        <div class="activity-day">
+                            <span class="activity-count">@day.Count</span>
+                            <div class="activity-track">
+                                <span class="activity-bar" style="height: @barHeight%"></span>
+                            </div>
+                            <span class="activity-label">@day.Date.ToString("ddd")</span>
+                        </div>
+                    }
+                </div>
+                <p class="chart-footnote">Counts reflect appointments recorded in the clinic system.</p>
+            </article>
+        </div>
+
+        <div class="info-grid">
+            <article class="mini-panel reveal-card">
+                <span class="mini-label">Care coordination</span>
+                <h3>Keep the next step clear</h3>
+                <p>Review upcoming visits and make sure patients know when and where they will be seen.</p>
+            </article>
+            <article class="mini-panel reveal-card">
+                <span class="mini-label">Thoughtful follow-up</span>
+                <h3>Stay connected after a visit</h3>
+                <p>Use appointment notes and prescriptions to support a consistent care experience.</p>
+            </article>
+            <article class="mini-panel reveal-card">
+                <span class="mini-label">A calmer clinic</span>
+                <h3>Focus on people first</h3>
+                <p>Bring essential information together so each interaction can feel more personal.</p>
+            </article>
+        </div>
+    </div>
+</section>

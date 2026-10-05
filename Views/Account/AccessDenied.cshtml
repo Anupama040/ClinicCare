@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Access denied";
+}
+
+<div class="text-center">
+    <h1 class="text-danger">Access denied</h1>
+
+    <p>
+        You are logged in, but you do not have permission
+        to access this page.
+    </p>
+
+    @if (User.IsInRole("Patient"))
+    {
+        <p>
+            Patients can view their own appointments from
+            the My Appointments page.
+        </p>
+
+        <a asp-controller="Appointments"
+           asp-action="MyAppointments"
+           class="btn btn-primary">
+            View My Appointments
+        </a>
+    }
+    else
+    {
+        <a asp-controller="Dashboard"
+           asp-action="Index"
+           class="btn btn-primary">
+            Return to Dashboard
+        </a>
+    }
+</div>

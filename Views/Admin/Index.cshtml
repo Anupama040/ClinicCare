@@ -1,0 +1,106 @@
+@model ClinicManagement.ViewModels.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin overview";
+    var peakDayCount = Model.WeeklyActivity.Count == 0
+        ? 0
+        : Model.WeeklyActivity.Max(day => day.Count);
+}
+
+<section class="dashboard-shell">
+    <div class="container">
+        <div class="dashboard-hero admin-hero reveal-card">
+            <div>
+                <span class="eyebrow">Clinic operations</span>
+                <h1>Admin overview</h1>
+                <p>Welcome, @User.Identity?.Name. Here is your clinic at a glance.</p>
+            </div>
+            <div class="dashboard-actions">
+                <a class="btn btn-primary" asp-controller="Appointments" asp-action="Create">Schedule a visit</a>
+                <a class="btn btn-outline-primary" asp-controller="Patients" asp-action="Index">Manage patients</a>
+            </div>
+        </div>
+
+        <div class="stat-grid admin-stat-grid">
+            <article class="stat-card reveal-card">
+                <span class="stat-label">Total patients</span>
+                <strong class="stat-value">@Model.PatientCount</strong>
+                <a class="stat-link" asp-controller="Patients" asp-action="Index">Open patient directory</a>
+            </article>
+            <article class="stat-card reveal-card">
+                <span class="stat-label">Clinical team</span>
+                <strong class="stat-value">@Model.DoctorCount</strong>
+                <a class="stat-link" asp-controller="Doctors" asp-action="Index">View doctors</a>
+            </article>
+            <article class="stat-card reveal-card">
+                <span class="stat-label">All appointments</span>
+                <strong class="stat-value">@Model.AppointmentCount</strong>
+                <a class="stat-link" asp-controller="Appointments" asp-action="Index">Open schedule</a>
+            </article>
+            <article class="stat-card reveal-card">
+                <span class="stat-label">Awaiting care</span>
+                <strong class="stat-value">@Model.ScheduledAppointmentCount</strong>
+                <span class="stat-caption">Currently scheduled</span>
+            </article>
+        </div>
+
+        <div class="dashboard-grid">
+            <article class="panel reveal-card">
+                <div class="panel-heading">
+                    <div>
+                        <span class="mini-label">Clinic pulse · last 7 days</span>
+                        <h3>Appointment activity</h3>
+                    </div>
+                </div>
+                <div class="activity-chart admin-chart" role="img" aria-label="Appointments by day during the last seven days">
+                    @foreach (var day in Model.WeeklyActivity)
+                    {
+                        var barHeight = peakDayCount == 0 ? 0 : Math.Max(12, (int)Math.Round(day.Count * 100d / peakDayCount));
+                        <div class="activity-day">
+                            <span class="activity-count">@day.Count</span>
+                            <div class="activity-track">
+                                <span class="activity-bar" style="height: @barHeight%"></span>
+                            </div>
+                            <span class="activity-label">@day.Date.ToString("ddd")</span>
+                        </div>
+                    }
+                </div>
+                <p class="chart-footnote">Daily appointment totals from the clinic schedule.</p>
+            </article>
+
+            <article class="panel reveal-card">
+                <div class="panel-heading">
+                    <div>
+                        <span class="mini-label">Latest activity</span>
+                        <h3>Recent appointments</h3>
+                    </div>
+                    <a asp-controller="Appointments" asp-action="Index">View all</a>
+                </div>
+                @if (Model.RecentAppointments.Count == 0)
+                {
+                    <div class="empty-state">
+                        <span class="empty-state-mark">+</span>
+                        <strong>No appointments yet</strong>
+                        <span>Scheduled visits will appear here.</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="recent-list">
+                        @foreach (var appointment in Model.RecentAppointments)
+                        {
+                            <a class="recent-row" asp-controller="Appointments" asp-action="Details" asp-route-id="@appointment.Id">
+                                <span class="avatar-chip">@appointment.Patient.FirstName[..1]@appointment.Patient.LastName[..1]</span>
+                                <span class="recent-person">
+                                    <strong>@appointment.Patient.FirstName @appointment.Patient.LastName</strong>
+                                    <small>Dr. @appointment.Doctor.FirstName @appointment.Doctor.LastName</small>
+                                </span>
+                                <span class="recent-status">@appointment.Status</span>
+                            </a>
+                        }
+                    </div>
+                }
+            </article>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,126 @@
+@model ClinicManagement.Models.Patient
+
+@{
+    ViewData["Title"] = "Register Patient";
+}
+
+<h1>Register Patient</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger">
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="FirstName"
+                   class="form-label">
+            </label>
+
+            <input asp-for="FirstName"
+                   class="form-control" />
+
+            <span asp-validation-for="FirstName"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="LastName"
+                   class="form-label">
+            </label>
+
+            <input asp-for="LastName"
+                   class="form-control" />
+
+            <span asp-validation-for="LastName"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="DateOfBirth"
+                   class="form-label">
+            </label>
+
+            <input asp-for="DateOfBirth"
+                   class="form-control" />
+
+            <span asp-validation-for="DateOfBirth"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Gender"
+                   class="form-label">
+            </label>
+
+            <select asp-for="Gender"
+                    class="form-select">
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <span asp-validation-for="Gender"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Phone"
+                   class="form-label">
+            </label>
+
+            <input asp-for="Phone"
+                   class="form-control" />
+
+            <span asp-validation-for="Phone"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Email"
+                   class="form-label">
+            </label>
+
+            <input asp-for="Email"
+                   class="form-control" />
+
+            <span asp-validation-for="Email"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="col-12 mb-3">
+            <label asp-for="Address"
+                   class="form-label">
+            </label>
+
+            <textarea asp-for="Address"
+                      class="form-control">
+            </textarea>
+
+            <span asp-validation-for="Address"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Save Patient
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

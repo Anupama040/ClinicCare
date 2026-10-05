@@ -1,0 +1,131 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-section">
+    <div class="container hero-content">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="eyebrow">Care that feels personal</span>
+                <h1 class="hero-title">Healthcare designed around every patient journey.</h1>
+                <p class="hero-copy">
+                    Bring together appointments, patient records, prescriptions, and care coordination in one calm, connected experience.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">Create your account</a>
+                    <a class="btn btn-outline-primary btn-lg" asp-controller="Dashboard" asp-action="Index">View dashboard</a>
+                </div>
+
+                <div class="hero-trust">
+                    <span class="trust-pill">Designed for care teams</span>
+                    <span class="trust-pill">Centered on the patient</span>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="hero-visual">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80"
+                         alt="Doctors consulting with patient"
+                         class="hero-image" />
+
+                    <div class="floating-card card-one">
+                        <span class="card-label">Clinical team</span>
+                        <strong>Connected care workflows</strong>
+                    </div>
+
+                    <div class="floating-card card-two">
+                        <span class="card-label">Patient experience</span>
+                        <strong>Care, made more personal</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="metrics-strip">
+    <div class="container">
+        <div class="metric-grid">
+            <article class="metric-card reveal-card">
+                <span class="metric-value">Patients</span>
+                <span class="metric-label">Profiles and records</span>
+            </article>
+            <article class="metric-card reveal-card">
+                <span class="metric-value">Visits</span>
+                <span class="metric-label">Scheduling and follow-up</span>
+            </article>
+            <article class="metric-card reveal-card">
+                <span class="metric-value">Clinical</span>
+                <span class="metric-label">Doctor and prescription workflows</span>
+            </article>
+            <article class="metric-card reveal-card">
+                <span class="metric-value">One place</span>
+                <span class="metric-label">For connected clinic operations</span>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="feature-section">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">Why clinics choose us</span>
+            <h2>Everything clinicians and patients need, in one place.</h2>
+        </div>
+
+        <div class="value-grid">
+            <article class="value-card reveal-card">
+                <div class="icon-badge">01</div>
+                <h3>Smarter scheduling</h3>
+                <p>Reduce wait times with responsive appointments, reminders, and better team visibility.</p>
+            </article>
+            <article class="value-card reveal-card">
+                <div class="icon-badge">02</div>
+                <h3>Personalized care</h3>
+                <p>Keep important patient history, notes, and treatment plans connected from the first visit onward.</p>
+            </article>
+            <article class="value-card reveal-card">
+                <div class="icon-badge">03</div>
+                <h3>Friendly digital experience</h3>
+                <p>Give every patient a simpler, more reassuring experience without sacrificing clinical precision.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="story-section">
+    <div class="container story-grid">
+        <div class="story-image-wrap reveal-card">
+            <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=900&q=80"
+                 alt="Healthcare professional reviewing notes"
+                 class="story-image" />
+        </div>
+
+        <div class="story-copy reveal-card">
+            <span class="eyebrow">Human-centered care</span>
+            <h2>Built for calm experiences and confident decisions.</h2>
+            <p>
+                We combine modern tools with empathetic design so patients feel supported and staff can focus on care rather than administrative friction.
+            </p>
+
+            <ul class="value-list">
+                <li>Seamless workflows for doctors, receptionists, and patients</li>
+                <li>Clear communication at every step of care</li>
+                <li>Accessible, modern interfaces that feel reassuring and trustworthy</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-panel reveal-card">
+            <div>
+                <span class="eyebrow">Ready to start?</span>
+                <h2>Deliver a better care experience from day one.</h2>
+            </div>
+            <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">Create an account</a>
+        </div>
+    </div>
+</section>

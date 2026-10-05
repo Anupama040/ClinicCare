@@ -1,0 +1,64 @@
+@model ClinicManagement.Models.Appointment
+
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+
+<h1>Appointment Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Patient</dt>
+            <dd class="col-sm-9">
+                @Model.Patient.FirstName
+                @Model.Patient.LastName
+            </dd>
+
+            <dt class="col-sm-3">Doctor</dt>
+            <dd class="col-sm-9">
+                Dr. @Model.Doctor.FirstName
+                @Model.Doctor.LastName
+            </dd>
+
+            <dt class="col-sm-3">Specialization</dt>
+            <dd class="col-sm-9">
+                @Model.Doctor.Specialization
+            </dd>
+
+            <dt class="col-sm-3">Date and Time</dt>
+            <dd class="col-sm-9">
+                @Model.AppointmentDate.ToString(
+                    "dd-MM-yyyy hh:mm tt")
+            </dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                @Model.Status
+            </dd>
+
+            <dt class="col-sm-3">Notes</dt>
+            <dd class="col-sm-9">
+                @(Model.Notes ?? "No notes")
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Back to Appointments
+    </a>
+    @if (Model.Status == "Completed"
+    && (User.IsInRole("Admin")
+        || User.IsInRole("Doctor")))
+{
+    <a asp-controller="Prescriptions"
+       asp-action="Create"
+       asp-route-appointmentId="@Model.Id"
+       class="btn btn-primary">
+        Create Prescription
+    </a>
+}
+</div>
